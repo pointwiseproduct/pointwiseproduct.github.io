@@ -818,7 +818,7 @@ function phaseA() {
         return;
     }
     if (ppInstance.chunkDir == 0) {
-        if (ppInstance.chunkX == 5) {
+        if (ppInstance.chunkX == 0) {
             --ppInstance.chunkX;
             var a = lambda(ppInstance.chunkX);
             f[a][ppInstance.chunkX] = ppInstance.pf[ppInstance.param.curr].bottle[0];
