@@ -1109,8 +1109,8 @@ function phaseE() {
     r += "&d=" + ppInstance.otherPlayerChunkDir.toString();
     r += "&n=" + ppInstance.nextPuyoX.toString();
     r += "&c=" + (1 - ppInstance.param.curr).toString();
-    (<HTMLInputElement>document.getElementById("nextURI")).value = r;
-    addLog("<span class=\"dummy\">Player" + (ppInstance.param.curr == 0 ? " 2 " : " 1 ") + "</span> > URL を生成しました.");
+    //(<HTMLInputElement>document.getElementById("nextURI")).value = r;
+    addLog("<span class=\"dummy\">Player" + (ppInstance.param.curr == 0 ? " 2 " : " 1 ") + "</span> > <a href=" + r + " target='_blank'>URL を生成しました</a>.");
 }
 
 document.onmousemove = (e) => {
