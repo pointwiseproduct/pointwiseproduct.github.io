@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Knuth-Bendixの完備化アルゴリズム</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css" media="all">
     <style>
       .emscripten { padding-right: 0; display: block; }
       textarea.emscripten {
@@ -21,6 +21,11 @@
       }
       .compl_button {
         margin: 10px;
+        font-family:Consolas, 'Courier New', Courier, Monaco, monospace;
+        font-size:0.9em;
+        color:#333;
+      }
+      .comparison_upper_limit {
         font-family:Consolas, 'Courier New', Courier, Monaco, monospace;
         font-size:0.9em;
         color:#333;
@@ -85,11 +90,12 @@
     <p>項書き換え規則を完備化します．</p>
     <p>アルゴリズムにはKnuth-Bendixによる方法を用いているため，本来完備化に成功する等式集合であっても実際に成功するかどうかは記述した順序に依存します．</p>
     <p>入力は概ね標準的なtrsファイルのフォーマットに準拠します．&lt;&gt;で囲んだ文字列はコメントになります．</p>
-    <p>完備化中にtermの比較がlpoにて失敗した場合，あるいはlpoで5000回比較して完備化が終了しなかった場合に強制停止し失敗として扱います．</p>
+    <p>完備化中にtermの比較がlpoにて失敗した場合，あるいはlpoでupper limitで指定した回比較して完備化が終了しなかった場合に強制停止し完備化そのものを失敗として扱います．</p>
     <p>trsファイルの例などは<a href="http://www.jaist.ac.jp/project/maxcomp/experiments/experiments.html" target="_blank">こちら</a>から参照すると良いです．</p>
     <p>このプログラムはC++とemscriptenで書かれています．ソースコードは<a href="https://gist.github.com/pointwiseproduct/15e3053a71448363e858a661f98bd4d5" target="_blank">こちら</a></p>
     </div>
     <button type="submit" onclick="javascript:invokeCompletion();" class="compl_button">Completion...</button>
+    <span class="comparison_upper_limit">Upper limit: </span><input type="text" class="comparison_upper_limit" id="upperLimit" size="12" maxlength="10" value="5000"/>
     <textarea class="emscripten" id="trs" rows="18"">&lt;sample. axioms of group.&gt;
 (VAR x y z)
 
@@ -183,8 +189,28 @@
       var ctrlKey = 0;
       var enterKey = 0;
       function invokeCompletion(){
+        var limitStr = document.getElementById("upperLimit").value;
+        var limit = 0;
+        for(var i = 0; i < limitStr.length; ++i){
+         var n = 0;
+          switch(limitStr[i]){
+            case '0': n = 0; break;
+            case '1': n = 1; break;
+            case '2': n = 2; break;
+            case '3': n = 3; break;
+            case '4': n = 4; break;
+            case '5': n = 5; break;
+            case '6': n = 6; break;
+            case '7': n = 7; break;
+            case '8': n = 8; break;
+            case '9': n = 9; break;
+            default: break;
+          }
+          limit *= 10;
+          limit += n;
+        }
         document.getElementById("output").value = "";
-        document.getElementById("trs").value = Module.completion(document.getElementById("trs").value, 5000);
+        document.getElementById("trs").value = Module.completion(document.getElementById("trs").value, limit);
       }
     </script>
     <script async type="text/javascript" src="trs.js"></script>
