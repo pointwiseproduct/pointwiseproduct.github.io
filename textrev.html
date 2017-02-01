@@ -1,0 +1,28 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>テキスト攪乱装置</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function rev(){
+      var text = document.getElementById("target_text").value;
+      var ret = "";
+      for(var i = 0; i < text.length; ++i){
+        var c = text.charAt(text.length - i - 1);
+        if(c == "「"){
+          ret += "」";
+        }else if(c == "」"){
+          ret += "「";
+        }else{
+          ret += c;
+        }
+      }
+      document.getElementById("target_text").value = ret;
+    }
+  </script>
+  <div><textarea cols="40" rows="7" id="target_text"></textarea></div>
+  <div><input type="button" value="ツイートする" onclick="window.open('https://twitter.com/intent/tweet?text=' + document.getElementById('target_text').value, '_blank');"> <input type="button" value="反転" onclick="rev();" /></div>
+</body
+</html>
+
