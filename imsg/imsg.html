@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>あなたとJava、今すぐダウンロー　ド</title>
+ 
+</head>
+ 
+<body id="main">
+ 
+<audio id="a1"><source src="1.wav"></audio>
+<audio id="a2"><source src="1.5.wav"></audio>
+<audio id="a3"><source src="1.7.wav"></audio>
+<audio id="a4"><source src="2.0.wav"></audio>
+<audio id="a5"><source src="2.3.wav"></audio>
+<audio id="a6"><source src="2.5.wav"></audio>
+<audio id="a7"><source src="2.5.2.wav"></audio>
+<audio id="a8"><source src="2.5.3.wav"></audio>
+<audio id="a9"><source src="2.5.4.wav"></audio>
+<audio id="a10"><source src="2.5.5.wav"></audio>
+<audio id="last"><source src="last.wav"></audio>
+
+<script type="text/javascript">
+var current_sound = 0;
+var an = new Array(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+var threshold = 700;
+var previous = Date.now();
+var accum = 0;
+
+function last_play() {
+  document.getElementById("main").style.backgroundColor="#D00000";
+  document.getElementById("java").innerHTML = "JavaScript";
+  a10.pause();
+  last.play();
+}
+
+function audio_play() {
+  if(current_sound == 9){
+    document.getElementById("do").onclick=";";
+    current_sound = 10;
+    a10.loop = true;
+    a10.play();
+    setTimeout(last_play, 10000);
+    return;
+  }
+
+  for(var i = 0; i < an.length; ++i){
+    if(an[i].currentTime > 0.0){
+      an[i].pause();
+    }
+    an[i].currentTime = 0.0;
+  }
+  an[current_sound].play();
+
+  if(current_sound <9){
+    var t = Date.now();
+    var u = t - previous;
+    if(u <= threshold){
+      if(accum >= 4){
+        current_sound++;
+        accum = 0;
+      }else{ ++accum; }
+    }else{
+        accum = 0;
+    }
+    previous = t;
+  }
+}
+</script>
+
+<h1><a href="#" onclick="audio_play();" id="do">あなたと<span id="java">Java</span><br/>今すぐダウンロー<br/>ド</a></h1>
+<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="unsolvedprobrem" data-hashtags="あなたとJava今すぐダウンローｄ">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+ 
+</body>
+ 
+</html>
